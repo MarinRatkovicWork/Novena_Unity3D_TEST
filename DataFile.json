@@ -1,0 +1,170 @@
+{
+	"TranslatedContents": [
+		{
+			"LanguageId": 1,
+			"LanguageName": "Hrvatski",
+			"Topics": [
+				{
+					"Name": "Priroda",
+					"Media": [
+						{
+							"Name": "Gallery",
+							"Photos": [
+								{
+									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/1.jpg",
+									"Name": "test1"
+								},
+								{
+									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/5.jpg",
+									"Name": "test2"
+								},
+								{
+									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/17.jpg",
+									"Name": "test3"
+								},
+								{
+									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/16.jpg",
+									"Name": "test4"
+								}
+							]
+						},
+						{
+							"Name": "Audio",
+							"FilePath": "/files/audio1.mp3"
+						}
+					]
+				},
+				{
+					"Name": "Tehnologija",
+					"Media": [
+						{
+							"Name": "Gallery",
+							"Photos": [
+								{
+									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/3.jpg",
+									"Name": "test1"
+								},
+								{
+									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/4.jpg",
+									"Name": "test2"
+								}
+							]
+						},
+						{
+							"Name": "Audio",
+							"FilePath": "/files/audio1.mp3"
+						}
+					]
+				},
+				{
+					"Name": "Snjeg",
+					"Media": [
+						{
+							"Name": "Gallery",
+							"Photos": [
+								{
+									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/15.jpg",
+									"Name": "test1"
+								},
+								{
+									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/14.jpg",
+									"Name": "test2"
+								},
+								{
+									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/10.jpg",
+									"Name": "test3"
+								}
+							]
+						},
+						{
+							"Name": "Audio",
+							"FilePath": "/files/audio1.mp3"
+						}
+					]
+				}
+			]
+		},
+		{
+			"LanguageId": 2,
+			"LanguageName": "English",
+			"Topics": [
+				{
+					"Name": "Nature",
+					"Media": [
+						{
+							"Name": "Gallery",
+							"Photos": [
+								{
+									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/11.jpg",
+									"Name": "test1"
+								},
+								{
+									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/18.jpg",
+									"Name": "test2"
+								}
+							]
+						},
+						{
+							"Name": "Audio",
+							"FilePath": "/files/audio1.mp3"
+						}
+					]
+				},
+				{
+					"Name": "People",
+					"Media": [
+						{
+							"Name": "Gallery",
+							"Photos": [
+								{
+									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/14.jpg",
+									"Name": "test1"
+								},
+								{
+									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/2.jpg",
+									"Name": "test2"
+								},
+								{
+									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/6.jpg",
+									"Name": "test3"
+								}
+							]
+						},
+						{
+							"Name": "Audio",
+							"FilePath": "/files/audio1.mp3"
+						}
+					]
+				}
+			]
+		},
+		{
+			"LanguageId": 3,
+			"LanguageName": "Dansk",
+			"Topics": [
+				{
+					"Name": "Natur",
+					"Media": [
+						{
+							"Name": "Gallery",
+							"Photos": [
+								{
+									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/9.jpg",
+									"Name": "test1"
+								},
+								{
+									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/8.jpg",
+									"Name": "test2"
+								}
+							]
+						},
+						{
+							"Name": "Audio",
+							"FilePath": "/files/audio1.mp3"
+						}
+					]
+				}
+			]
+		}
+	]
+}
