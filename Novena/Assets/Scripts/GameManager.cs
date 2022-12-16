@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
@@ -35,7 +38,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject AudioBar;
     [SerializeField]
-    GameObject ImageHolder;
+    RawImage ImageHolder;
     [SerializeField]
     Button AudioPlayPauseButton;
     [SerializeField]
@@ -59,14 +62,15 @@ public class GameManager : MonoBehaviour
     AudioSource AudioSource;
     bool PlayingAudio= false;
     JSONData Jdata = new JSONData();
-    public float SpriteSwopInterva = 5;
+    public float PictureSwopInterva = 5;
     private bool isGallaryStop;
+    public List<GameObject> gallary = new List<GameObject>();
 
-    public List<Sprite> TestImages;
     public void Start()
     {
         isGallaryStop = false;
         EnablePage(1);
+        Debug.Log(Application.persistentDataPath);
     }
     public void Update()
     {
@@ -76,7 +80,7 @@ public class GameManager : MonoBehaviour
             AudioBar.GetComponent<Slider>().value = AudioSource.time;
             if (isGallaryStop == false)
             {
-                StartCoroutine(SetUpGallary(TestImages));
+                StartCoroutine(SetUpGallary(gallary));
             }
         } 
         
@@ -170,22 +174,31 @@ public class GameManager : MonoBehaviour
         ReturnPage3.GetComponent<Button>().onClick.AddListener(() => EnablePage(2));
         TopicNumber.text = _topicNumber.ToString();
         TopicName.text = _data.Name;
-        SetAudioFile(_data);
- 
-    }
-
-    private IEnumerator SetUpGallary(List<Sprite> _sprites)
-    {
-      for(int i = 0; i < _sprites.Count; i++)
+        gallary.Clear();
+        foreach(Media MD in _data.Media)
         {
             
-            ImageHolder.GetComponent<Image>().sprite= _sprites[i];
-            yield return new WaitForSecondsRealtime(SpriteSwopInterva);
+              LoadGallaryRawImagesFromDisk(MD);
+            if(MD.FilePath != null)
+            {
+               // LoadAudioClipFromDisk(MD.Name);
+            }
+        }
+        
+        SetAudioFile(_data);       
+    }
+
+    private IEnumerator SetUpGallary(List<GameObject> _gallery)
+    {
+      for(int i = 0; i < _gallery.Count; i++)
+        {            
+            ImageHolder.texture = _gallery[i].GetComponent<RawImage>().texture;
+            yield return new WaitForSecondsRealtime(PictureSwopInterva);
             if(i== 0)
             {
                 isGallaryStop = true;
             }
-            else if(i== _sprites.Count - 1)
+            else if(i== _gallery.Count - 1)
             {
                 isGallaryStop = false;
 
@@ -200,11 +213,14 @@ public class GameManager : MonoBehaviour
         AudioBar.GetComponent<Slider>().maxValue = AudioSource.clip.length;
         AudioBar.GetComponent<Slider>().onValueChanged.AddListener(delegate{AudioSource.time = AudioBar.GetComponent<Slider>().value;});
         AudioBar.GetComponent<Slider>().value = AudioSource.time;
-        AudioPlayPauseButton.GetComponent<Button>().onClick.AddListener(()=>PressPlay(AudioSource));
-        
-
+        AudioPlayPauseButton.GetComponent<Button>().onClick.AddListener(()=>PressPlay(AudioSource));        
     }
 
+    private void GetAudioFile(Media _data)
+    {
+        JSONReader jR = this.gameObject.GetComponent<JSONReader>();
+        jR.LoadAudio(_data.FilePath,_data.Name);
+    }
     
     private void PressPlay(AudioSource _audioSource)
     {   if(PlayingAudio == false)
@@ -262,4 +278,55 @@ public class GameManager : MonoBehaviour
         int seconds = (int)time - 60 * minutes;     
         return string.Format("{0:00}:{1:00}", minutes, seconds);     
     }
+    //Fach data from Aplication.PersistentDataPath
+    public void LoadGallaryRawImagesFromDisk(Media _data)
+    {
+        if (_data.Photos != null)
+        {
+            foreach (Photos PH in _data.Photos)
+            {
+                if (PH != null)
+                {
+                    if (File.Exists(Application.persistentDataPath + "/" + PH.Name))
+                    {
+                        byte[] UploadByte = File.ReadAllBytes(Application.persistentDataPath + "/" + PH.Name);
+                        Texture2D texture = new Texture2D(100, 100);
+                        texture.LoadImage(UploadByte);
+                        GameObject obj = new GameObject();
+                        obj.name = PH.Name;
+                        obj.AddComponent<RawImage>();
+                        obj.GetComponent<RawImage>().texture = texture;
+                        gallary.Add(obj);
+                    }
+                    else
+                    {  
+                        Debug.Log("Error on LoadImage");
+                    }
+                }
+                else
+                {
+
+                    Debug.Log("Error on LoppData load");
+
+                }
+            }
+        }
+    }
+    public void LoadAudioClipFromDisk(string filename)
+    {
+        if (File.Exists(Application.persistentDataPath + "/" + filename))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/" + filename, FileMode.Open);
+            AudioClip clip = (AudioClip)bf.Deserialize(file);
+            file.Close();
+            AudioBar.GetComponent<AudioSource>().clip = clip;
+        }
+        else
+        {
+            Debug.Log("File Not Found!");
+        }
+
+    }
+
 }

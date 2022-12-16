@@ -327,7 +327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
+  m_Color: {r: 0.16862746, g: 0.38823533, b: 0.59607846, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1832,7 +1832,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1427494614}
   - component: {fileID: 1427494616}
-  - component: {fileID: 1427494615}
+  - component: {fileID: 1427494617}
   m_Layer: 5
   m_Name: ImageHolder
   m_TagString: Untagged
@@ -1860,7 +1860,15 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -35.61}
   m_SizeDelta: {x: 0, y: -71.221}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1427494615
+--- !u!222 &1427494616
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427494613}
+  m_CullTransparentMesh: 1
+--- !u!114 &1427494617
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1869,7 +1877,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1427494613}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -1880,24 +1888,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1427494616
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1427494613}
-  m_CullTransparentMesh: 1
+  m_Texture: {fileID: 2800000, guid: 0128b89599da603489450e096dda25ac, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &1574752650
 GameObject:
   m_ObjectHideFlags: 0
@@ -2759,7 +2756,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5624939447859607165, guid: 72fdd203c5b8c59458eda7b929bdf581, type: 3}
       propertyPath: jsonURL
-      value: https://raw.githubusercontent.com/MarinRatkovicWork/Novena_Unity3D_TEST/main/DataFile.json?token=GHSAT0AAAAAAB4NLLNJMZFY62H6PG7OGI3KY44HSNQ
+      value: https://raw.githubusercontent.com/MarinRatkovicWork/Novena_Unity3D_TEST/main/DataFile.json
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72fdd203c5b8c59458eda7b929bdf581, type: 3}
@@ -2790,20 +2787,15 @@ MonoBehaviour:
   TopicName: {fileID: 118215980}
   ReturnPage3: {fileID: 1585528379}
   AudioBar: {fileID: 756528380}
-  ImageHolder: {fileID: 1427494613}
+  ImageHolder: {fileID: 1427494617}
   AudioPlayPauseButton: {fileID: 1590696567022683374}
   Play: {fileID: 1239276435}
   Pause: {fileID: 1574752650}
   Page4: {fileID: 2024217523}
   TopicButton: {fileID: 8122098230309996883, guid: 0ff70dec8e4989546a09472bbadb6813, type: 3}
   LanguageButtonPrefab: {fileID: 3462380664165838255, guid: bbdb51f6e8ddc1f4c936cb413d78b236, type: 3}
-  SpriteSwopInterva: 2
-  TestImages:
-  - {fileID: 21300000, guid: 0128b89599da603489450e096dda25ac, type: 3}
-  - {fileID: 21300000, guid: 80c1d3bae78e5684ea4703249f277578, type: 3}
-  - {fileID: 21300000, guid: fdede59a452d1d44eaa87e96b1f4c0ed, type: 3}
-  - {fileID: 21300000, guid: 2bee1231418f0564a97231a6e319a262, type: 3}
-  - {fileID: 21300000, guid: 79dfb4e63ab009b468596d467af50643, type: 3}
+  PictureSwopInterva: 5
+  gallary: []
 --- !u!222 &8970517167509892304
 CanvasRenderer:
   m_ObjectHideFlags: 0
