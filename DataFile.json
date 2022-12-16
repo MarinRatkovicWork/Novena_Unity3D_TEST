@@ -8,28 +8,28 @@
 					"Name": "Priroda",
 					"Media": [
 						{
-							"Name": "Gallery",
+							"Name": "Gallery1",
 							"Photos": [
 								{
 									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/1.jpg",
-									"Name": "test1"
+									"Name": "test11"
 								},
 								{
 									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/5.jpg",
-									"Name": "test2"
+									"Name": "test12"
 								},
 								{
 									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/17.jpg",
-									"Name": "test3"
+									"Name": "test13"
 								},
 								{
 									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/16.jpg",
-									"Name": "test4"
+									"Name": "test14"
 								}
 							]
 						},
 						{
-							"Name": "Audio",
+							"Name": "Audio1",
 							"FilePath": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/main/Audio/Zabranjeno%20pu%C5%A1enje%20-%20Balada%20o%20Pi%C5%A1onji%20i%20%C5%BDugi%20-%20Pozdrav%20iz%20zemlje%20Safari.mp3"
 						}
 					]
@@ -38,20 +38,20 @@
 					"Name": "Tehnologija",
 					"Media": [
 						{
-							"Name": "Gallery",
+							"Name": "Gallery2",
 							"Photos": [
 								{
 									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/3.jpg",
-									"Name": "test1"
+									"Name": "test21"
 								},
 								{
 									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/4.jpg",
-									"Name": "test2"
+									"Name": "test22"
 								}
 							]
 						},
 						{
-							"Name": "Audio",
+							"Name": "Audio2",
 							"FilePath": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/main/Audio/Miladin%20%C5%A0obi%C4%87%20-%20D%C5%BEemper%20za%20vinograd.mp3"
 						}
 					]
@@ -60,24 +60,24 @@
 					"Name": "Snjeg",
 					"Media": [
 						{
-							"Name": "Gallery",
+							"Name": "Gallery3",
 							"Photos": [
 								{
 									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/15.jpg",
-									"Name": "test1"
+									"Name": "test31"
 								},
 								{
 									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/14.jpg",
-									"Name": "test2"
+									"Name": "test32"
 								},
 								{
 									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/10.jpg",
-									"Name": "test3"
+									"Name": "test33"
 								}
 							]
 						},
 						{
-							"Name": "Audio",
+							"Name": "Audio3",
 							"FilePath": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/main/Audio/Bajaga%20i%20Instruktori%20-%20Tisina%20-%20(Audio%201988).mp3"
 						}
 					]
@@ -92,20 +92,20 @@
 					"Name": "Nature",
 					"Media": [
 						{
-							"Name": "Gallery",
+							"Name": "Gallery4",
 							"Photos": [
 								{
 									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/11.jpg",
-									"Name": "test1"
+									"Name": "test41"
 								},
 								{
 									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/18.jpg",
-									"Name": "test2"
+									"Name": "test42"
 								}
 							]
 						},
 						{
-							"Name": "Audio",
+							"Name": "Audio4",
 							"FilePath": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/main/Audio/George%20Ezra%20-%20Shotgun%20(Lyrics).mp3"
 						}
 					]
@@ -114,24 +114,24 @@
 					"Name": "People",
 					"Media": [
 						{
-							"Name": "Gallery",
+							"Name": "Gallery5",
 							"Photos": [
 								{
 									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/14.jpg",
-									"Name": "test1"
+									"Name": "test51"
 								},
 								{
 									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/2.jpg",
-									"Name": "test2"
+									"Name": "test52"
 								},
 								{
 									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/6.jpg",
-									"Name": "test3"
+									"Name": "test53"
 								}
 							]
 						},
 						{
-							"Name": "Audio",
+							"Name": "Audio5",
 							"FilePath": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/main/Audio/My%20Way%20(2008%20Remastered).mp3"
 						}
 					]
@@ -146,20 +146,20 @@
 					"Name": "Natur",
 					"Media": [
 						{
-							"Name": "Gallery",
+							"Name": "Gallery6",
 							"Photos": [
 								{
 									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/9.jpg",
-									"Name": "test1"
+									"Name": "test61"
 								},
 								{
 									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/8.jpg",
-									"Name": "test2"
+									"Name": "test62"
 								}
 							]
 						},
 						{
-							"Name": "Audio",
+							"Name": "Audio6",
 							"FilePath": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/main/Audio/Miracle%20Of%20Sound%20-%20VALHALLA%20CALLING%20ft.%20Peyton%20Parrish%20(Assassin's%20Creed)%20Duet%20Version.mp3"
 						}
 					]
