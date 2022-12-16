@@ -31,7 +31,7 @@ public class JSONReader : MonoBehaviour
         else
         {
 
-            Debug.Log("Error while downloding jasonData!!!");
+            Debug.Log("Error while downloding jasonData!!!" + _www.error.ToString());
         }
     }
     private void processJsonData(string _url)

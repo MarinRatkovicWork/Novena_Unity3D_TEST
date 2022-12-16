@@ -54,14 +54,27 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject LanguageButtonPrefab;
 
+    JSONData Jdata = new JSONData();
     public void Start()
     {
-        EnablePage(1);
+        
+       EnablePage(1);
     }
+    public void FixedUpdate()
+    {
+
+        if (this.gameObject.GetComponent<JSONReader>().jsonData != Jdata)
+        {
+            Jdata = this.gameObject.GetComponent<JSONReader>().jsonData;
+            InstantiateAllLanguages(Jdata);
+            
+        }
+    }
+
     private void InstantiateNewLanguage(TranslatedContents _data)
     {
         GameObject button = Instantiate(LanguageButtonPrefab);
-        button.transform.parent = LanguageButtonHolder.transform;
+        button.transform.SetParent(LanguageButtonHolder.transform);
         button.GetComponentInChildren<Text>().text = _data.LanguageName;
         button.GetComponent<Button>().onClick.RemoveAllListeners();
         button.GetComponent<Button>().onClick.AddListener(() => InstantiateTopics(_data));
@@ -70,20 +83,38 @@ public class GameManager : MonoBehaviour
     private void InstantiateTopics(TranslatedContents _data)
     {
         int counter = 1;
+        EnablePage(2);
         foreach (Topics topic in _data.Topics)
         {
             GameObject button = Instantiate(TopicButton);
-            button.transform.parent = TopicContainer.transform;
+            button.transform.SetParent(TopicContainer.transform);
             button.GetComponent<TopicButton>().TopicText.text = topic.Name;
             button.GetComponent<TopicButton>().TopicNumberText.text = counter.ToString();
             button.GetComponent<Button>().onClick.RemoveAllListeners();
             button.GetComponent<Button>().onClick.AddListener(() => SetUpPage3(_data));
             ReturnPage2.GetComponent<Button>().onClick.AddListener(() => EnablePage(1));
+            ReturnPage2.GetComponent<Button>().onClick.AddListener(() => DestroyAllChidren(TopicContainer));
             counter++;
         }
     }
 
-   
+    private void DestroyAllChidren(GameObject _object)
+    {
+        for( int i = 0; _object.transform.childCount > i; i++)
+        {
+            Destroy(_object.transform.GetChild(i).gameObject);
+        }
+    }
+ 
+
+    private void InstantiateAllLanguages(JSONData _data)
+    {
+        foreach(TranslatedContents tc in _data.TranslatedContents)
+        {
+            Debug.Log("Izvrseno");
+            InstantiateNewLanguage(tc);
+        }
+    }
 
     private void EnablePage(int pageNumber)
     {
@@ -92,9 +123,9 @@ public class GameManager : MonoBehaviour
         list.Add(Page2);
         list.Add(Page3);
         list.Add(Page4);
-        for(int i = 0; list.Count > 0; i++)
+        for(int i = 0; list.Count > i; i++)
         {
-            if(pageNumber- 1 == i )
+            if(pageNumber-1 == i )
             {
                 list[i].gameObject.SetActive(true);
             }
