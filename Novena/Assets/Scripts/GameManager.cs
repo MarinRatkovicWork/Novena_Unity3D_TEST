@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,9 +27,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject Page3;
     [SerializeField]
-    GameObject TopicNumber;
+    Text TopicNumber;
     [SerializeField]
-    GameObject TopicName;
+    Text TopicName;
     [SerializeField]
     Button ReturnPage3;
     [SerializeField]
@@ -39,8 +41,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject Play;
     [SerializeField]
-    GameObject Pouse;
-    
+    GameObject Pause;
+
     [Space]
 
     [Header("Screen 4 - Refrences")]
@@ -54,11 +56,21 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject LanguageButtonPrefab;
 
+    AudioSource AudioSource;
+    bool PlayingAudio= false;
     JSONData Jdata = new JSONData();
     public void Start()
     {
-        
-       EnablePage(1);
+
+        EnablePage(1);
+    }
+    public void Update()
+    {
+        if (Page3.active != false)
+        {
+            AudioBar.GetComponentInChildren<Text>().text = FormatTime(AudioSource.time) + " / " + FormatTime(AudioSource.clip.length);
+            AudioBar.GetComponent<Slider>().value = AudioSource.time;
+        }
     }
     public void FixedUpdate()
     {
@@ -67,7 +79,7 @@ public class GameManager : MonoBehaviour
         {
             Jdata = this.gameObject.GetComponent<JSONReader>().jsonData;
             InstantiateAllLanguages(Jdata);
-            
+
         }
     }
 
@@ -91,25 +103,32 @@ public class GameManager : MonoBehaviour
             button.GetComponent<TopicButton>().TopicText.text = topic.Name;
             button.GetComponent<TopicButton>().TopicNumberText.text = counter.ToString();
             button.GetComponent<Button>().onClick.RemoveAllListeners();
-            button.GetComponent<Button>().onClick.AddListener(() => SetUpPage3(_data));
-            ReturnPage2.GetComponent<Button>().onClick.AddListener(() => EnablePage(1));
-            ReturnPage2.GetComponent<Button>().onClick.AddListener(() => DestroyAllChidren(TopicContainer));
+            button.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                SetUpPage3(topic, counter);
+                EnablePage(3);
+            });
+            ReturnPage2.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                EnablePage(1);
+                DestroyAllChidren(TopicContainer);
+            });
             counter++;
         }
     }
 
     private void DestroyAllChidren(GameObject _object)
     {
-        for( int i = 0; _object.transform.childCount > i; i++)
+        for (int i = 0; _object.transform.childCount > i; i++)
         {
             Destroy(_object.transform.GetChild(i).gameObject);
         }
     }
- 
+
 
     private void InstantiateAllLanguages(JSONData _data)
     {
-        foreach(TranslatedContents tc in _data.TranslatedContents)
+        foreach (TranslatedContents tc in _data.TranslatedContents)
         {
             Debug.Log("Izvrseno");
             InstantiateNewLanguage(tc);
@@ -123,9 +142,9 @@ public class GameManager : MonoBehaviour
         list.Add(Page2);
         list.Add(Page3);
         list.Add(Page4);
-        for(int i = 0; list.Count > i; i++)
+        for (int i = 0; list.Count > i; i++)
         {
-            if(pageNumber-1 == i )
+            if (pageNumber - 1 == i)
             {
                 list[i].gameObject.SetActive(true);
             }
@@ -134,11 +153,83 @@ public class GameManager : MonoBehaviour
                 list[i].gameObject.SetActive(false);
             }
         }
-    } 
-    
-    private void SetUpPage3(TranslatedContents data)
+    }
+
+    private void SetUpPage3(Topics _data, int _topicNumber)
     {
+        ReturnPage3.GetComponent<Button>().onClick.AddListener(() => EnablePage(2));
+        TopicNumber.text = _topicNumber.ToString();
+        TopicName.text = _data.Name;
+        SetAudioFile(_data);
+    }
+
+    private void SetAudioFile(Topics _data)
+    {
+        AudioSource = AudioBar.GetComponent<AudioSource>();
+        AudioPlayPauseButton.GetComponent<Button>().onClick.RemoveAllListeners();
+        AudioBar.GetComponent<Slider>().maxValue = AudioSource.clip.length;
+        AudioBar.GetComponent<Slider>().onValueChanged.AddListener(delegate{AudioSource.time = AudioBar.GetComponent<Slider>().value;});
+        AudioBar.GetComponent<Slider>().value = AudioSource.time;
+        AudioPlayPauseButton.GetComponent<Button>().onClick.AddListener(()=>PressPlay(AudioSource));
+        
 
     }
 
+    
+    private void PressPlay(AudioSource _audioSource)
+    {   if(PlayingAudio == false)
+        {
+            PlayingAudio = true;
+        }
+        else
+        {
+            PlayingAudio = false;
+        }
+        if(PlayingAudio == true)
+        {
+            
+            PlayAudio(_audioSource, true);
+            PlayButtonGrafic(false);
+        }
+        else
+        {
+            
+            PlayAudio(_audioSource, false);
+            PlayButtonGrafic(true);
+        }
+    }
+
+
+    private void PlayAudio (AudioSource _audioSource,bool _isPlaying)
+    {
+        if(_isPlaying == false)
+        {
+            _audioSource.Pause();
+        }
+        else
+        {
+            _audioSource.Play();
+        }
+    }
+
+
+    private void PlayButtonGrafic(bool _isPlayingSprite)
+    {
+        if(_isPlayingSprite == true)
+        {
+            Play.SetActive(true);
+            Pause.SetActive(false);
+        }
+        else
+        {
+            Play.SetActive(false);
+            Pause.SetActive(true);
+        }
+    } 
+    public string FormatTime(float time)
+    {
+        int minutes = (int)time / 60;
+        int seconds = (int)time - 60 * minutes;     
+        return string.Format("{0:00}:{1:00}", minutes, seconds);     
+    }
 }
