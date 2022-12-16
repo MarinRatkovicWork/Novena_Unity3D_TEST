@@ -59,9 +59,13 @@ public class GameManager : MonoBehaviour
     AudioSource AudioSource;
     bool PlayingAudio= false;
     JSONData Jdata = new JSONData();
+    public float SpriteSwopInterva = 5;
+    private bool isGallaryStop;
+
+    public List<Sprite> TestImages;
     public void Start()
     {
-
+        isGallaryStop = false;
         EnablePage(1);
     }
     public void Update()
@@ -70,7 +74,13 @@ public class GameManager : MonoBehaviour
         {
             AudioBar.GetComponentInChildren<Text>().text = FormatTime(AudioSource.time) + " / " + FormatTime(AudioSource.clip.length);
             AudioBar.GetComponent<Slider>().value = AudioSource.time;
-        }
+            if (isGallaryStop == false)
+            {
+                StartCoroutine(SetUpGallary(TestImages));
+            }
+        } 
+        
+        
     }
     public void FixedUpdate()
     {
@@ -161,8 +171,28 @@ public class GameManager : MonoBehaviour
         TopicNumber.text = _topicNumber.ToString();
         TopicName.text = _data.Name;
         SetAudioFile(_data);
+ 
     }
 
+    private IEnumerator SetUpGallary(List<Sprite> _sprites)
+    {
+      for(int i = 0; i < _sprites.Count; i++)
+        {
+            
+            ImageHolder.GetComponent<Image>().sprite= _sprites[i];
+            yield return new WaitForSecondsRealtime(SpriteSwopInterva);
+            if(i== 0)
+            {
+                isGallaryStop = true;
+            }
+            else if(i== _sprites.Count - 1)
+            {
+                isGallaryStop = false;
+
+            }
+        }
+     
+    }
     private void SetAudioFile(Topics _data)
     {
         AudioSource = AudioBar.GetComponent<AudioSource>();
