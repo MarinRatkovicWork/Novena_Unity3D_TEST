@@ -16,11 +16,52 @@ public class ContentManager : MonoBehaviour
     public void Start()
     {
         jsonContent = new JsonContent();
+        imageContent = new ImageContent();
+        audioContent = new AudioContent();
         JsonUrl = "https://raw.githubusercontent.com/MarinRatkovicWork/Novena_Unity3D_TEST/main/DataFile.json";
-        StartCoroutine(DownloadJsonFile(JsonUrl,JsonName));
-        
+
+        DownloadAllContent();
     }
-    private IEnumerator DownloadJsonFile(string _Url, string _Name)
+
+    public void DownloadAllContent()
+    {
+        StartCoroutine(DownloadJsonFile(JsonUrl, JsonName, (isDone) =>
+        {
+            if (isDone)
+            {
+                foreach (TranslatedContents TC in JsonData.TranslatedContents)
+                {
+                    foreach (Topics TP in TC.Topics)
+                    {
+                        foreach (Media ME in TP.Media)
+                        {
+                            if (ME.FilePath != null)
+                            {
+                                StartCoroutine(DownloadAudioFromWeb(ME.FilePath, ME.Name));
+                                
+                            }
+                            else
+                            {
+                                foreach (Photos PH in ME.Photos)
+                                {
+                                    StartCoroutine(DownloadImageFromWeb(PH.Path, PH.Name));
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+            else
+            {
+                Debug.Log("Somting went wrong!!");
+            }
+
+        }));
+  
+    }
+
+    private IEnumerator DownloadJsonFile(string _Url, string _Name, Action<bool> callback)
     {
         using (UnityWebRequest www = UnityWebRequest.Get(_Url))
         {
@@ -29,33 +70,17 @@ public class ContentManager : MonoBehaviour
             if (www.isNetworkError || www.isHttpError)
             {
                 Debug.LogError("Error while loding image from web: " + www.error);
+                callback(false);
             }
             else
             {
                 string jsonString = www.downloadHandler.text;
                 jsonContent.SaveJson(_Name, jsonString);
                 JsonData = jsonContent.LoadJson(JsonName);
+                callback(true);
             }
         }
     }
-    public IEnumerator GetJsonDataFromFile(string _Url,string _Name)
-    {
-        using (UnityWebRequest www = UnityWebRequest.Get(_Url))
-        {
-            yield return www.SendWebRequest();
-
-            if (www.isNetworkError || www.isHttpError)
-            {
-                Debug.LogError("Error while loding image from web: " + www.error);
-            }
-            else
-            {
-                byte[] bytes = www.downloadHandler.data;
-                imageContent.SaveImage(_Name, bytes);
-            }
-        }
-    }
-
     private IEnumerator DownloadImageFromWeb(string _Url, string _Name)
     {
         using (UnityWebRequest www = UnityWebRequest.Get(_Url))
@@ -72,8 +97,7 @@ public class ContentManager : MonoBehaviour
                 imageContent.SaveImage(_Name, bytes);                
             }
         }
-    } 
-    
+    }    
     private IEnumerator DownloadAudioFromWeb(string _Url, string _Name)
     {
         using (UnityWebRequest www = UnityWebRequest.Get(_Url))
@@ -87,39 +111,16 @@ public class ContentManager : MonoBehaviour
             else
             {
                 byte[] bytes = www.downloadHandler.data;
-                AudioContent.Instance.SaveAudio(_Name,bytes);
+                audioContent.SaveAudio(_Name,bytes);
             }
         }
 
-    } 
-    
-    private IEnumerator PullAudioFromLocalFile(string _Name, Action<AudioClip> callback)
-    {
-        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("file://" + Application.persistentDataPath + "/Audio/"+_Name, AudioType.MPEG))
-        {
-            yield return www.SendWebRequest();
-
-            if (www.isNetworkError || www.isHttpError)
-            {
-                Debug.LogError("Error while loding audio from web: " + www.error);
-            }
-            else
-            {
-                Debug.Log("Audio start faching from file: ");
-                AudioClip myClip = DownloadHandlerAudioClip.GetContent(www);                
-                yield return myClip;
-                callback(myClip);
-                Debug.Log("Audio end faching from file: ");
-            }
-        }
-       
-
-    }
+    }    
     public void GetAudioFromFile(string _AudioName,AudioSource _AudioSwopTarget)
     {
-        StartCoroutine(PullAudioFromLocalFile(_AudioName,(getCallback) =>
+        StartCoroutine(audioContent.LoadAudio(_AudioName,(callClip) =>
         {
-            _AudioSwopTarget.clip = getCallback;
+            _AudioSwopTarget.clip = callClip;
         }));
     }
 
