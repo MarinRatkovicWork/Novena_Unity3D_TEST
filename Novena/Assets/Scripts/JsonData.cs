@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 
 [System.Serializable]
-public class JSONData
+public class JsonData
 {
     public TranslatedContents[] TranslatedContents;        
 }

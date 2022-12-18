@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
 
     AudioSource AudioSource;
     bool PlayingAudio= false;
-    JSONData Jdata = new JSONData();
+    JsonData Jdata = new JsonData();
     public float PictureSwopInterva = 5;
     private bool isGallaryStop;
     public List<GameObject> gallary = new List<GameObject>();
@@ -89,9 +89,9 @@ public class GameManager : MonoBehaviour
     public void FixedUpdate()
     {
 
-        if (this.gameObject.GetComponent<JSONReader>().jsonData != Jdata)
+       // if (this.gameObject.GetComponent<JsonContent>().jsonData != Jdata)
         {
-            Jdata = this.gameObject.GetComponent<JSONReader>().jsonData;
+           // Jdata = this.gameObject.GetComponent<JsonContent>().jsonData;
             InstantiateAllLanguages(Jdata);
 
         }
@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private void InstantiateAllLanguages(JSONData _data)
+    private void InstantiateAllLanguages(JsonData _data)
     {
         foreach (TranslatedContents tc in _data.TranslatedContents)
         {
@@ -218,8 +218,8 @@ public class GameManager : MonoBehaviour
 
     private void GetAudioFile(Media _data)
     {
-        JSONReader jR = this.gameObject.GetComponent<JSONReader>();
-        jR.LoadAudio(_data.FilePath,_data.Name);
+        JsonContent jR = this.gameObject.GetComponent<JsonContent>();
+        //jR.LoadAudio(_data.FilePath,_data.Name);
     }
     
     private void PressPlay(AudioSource _audioSource)
