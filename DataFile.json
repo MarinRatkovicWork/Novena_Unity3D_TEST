@@ -11,11 +11,11 @@
 							"Name": "Gallery1",
 							"Photos": [
 								{
-									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/1.jpg",
+									"Path": "https://raw.githubusercontent.com/MarinRatkovicWork/Novena_Unity3D_TEST/main/Images/1.jpg",
 									"Name": "test11"
 								},
 								{
-									"Path": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/c29720855697f315a10e43d815e19e5bf886dcf0/Images/5.jpg",
+									"Path": "https://raw.githubusercontent.com/MarinRatkovicWork/Novena_Unity3D_TEST/main/Images/2.jpg",
 									"Name": "test12"
 								},
 								{
@@ -30,7 +30,7 @@
 						},
 						{
 							"Name": "Audio1",
-							"FilePath": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/main/Audio/Zabranjeno%20pu%C5%A1enje%20-%20Balada%20o%20Pi%C5%A1onji%20i%20%C5%BDugi%20-%20Pozdrav%20iz%20zemlje%20Safari.mp3"
+							"FilePath": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/main/Audio/Zabranjeno%20pu%C5%A1enje%20-%20Balada%20o%20Pi%C5%A1onji%20i%20%C5%BDugi%20-%20Pozdrav%20iz%20zemlje%20Safari.mp3?raw=true"
 						}
 					]
 				},
@@ -52,7 +52,7 @@
 						},
 						{
 							"Name": "Audio2",
-							"FilePath": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/main/Audio/Miladin%20%C5%A0obi%C4%87%20-%20D%C5%BEemper%20za%20vinograd.mp3"
+							"FilePath": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/main/Audio/Miladin%20%C5%A0obi%C4%87%20-%20D%C5%BEemper%20za%20vinograd.mp3?raw=true"
 						}
 					]
 				},
@@ -78,7 +78,7 @@
 						},
 						{
 							"Name": "Audio3",
-							"FilePath": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/main/Audio/Bajaga%20i%20Instruktori%20-%20Tisina%20-%20(Audio%201988).mp3"
+							"FilePath": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/main/Audio/Bajaga%20i%20Instruktori%20-%20Tisina%20-%20(Audio%201988).mp3?raw=true"
 						}
 					]
 				}
@@ -106,7 +106,7 @@
 						},
 						{
 							"Name": "Audio4",
-							"FilePath": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/main/Audio/George%20Ezra%20-%20Shotgun%20(Lyrics).mp3"
+							"FilePath": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/main/Audio/George%20Ezra%20-%20Shotgun%20(Lyrics).mp3?raw=true"
 						}
 					]
 				},
@@ -132,7 +132,7 @@
 						},
 						{
 							"Name": "Audio5",
-							"FilePath": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/main/Audio/My%20Way%20(2008%20Remastered).mp3"
+							"FilePath": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/main/Audio/My%20Way%20(2008%20Remastered).mp3?raw=true"
 						}
 					]
 				}
@@ -160,7 +160,7 @@
 						},
 						{
 							"Name": "Audio6",
-							"FilePath": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/main/Audio/Miracle%20Of%20Sound%20-%20VALHALLA%20CALLING%20ft.%20Peyton%20Parrish%20(Assassin's%20Creed)%20Duet%20Version.mp3"
+							"FilePath": "https://github.com/MarinRatkovicWork/Novena_Unity3D_TEST/blob/main/Audio/Miracle%20Of%20Sound%20-%20VALHALLA%20CALLING%20ft.%20Peyton%20Parrish%20(Assassin's%20Creed)%20Duet%20Version.mp3?raw=true"
 						}
 					]
 				}
