@@ -1,16 +1,8 @@
-using Microsoft.Unity.VisualStudio.Editor;
-using Newtonsoft.Json;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-using static System.Net.WebRequestMethods;
-using static UnityEngine.UIElements.UxmlAttributeDescription;
-using Image = UnityEngine.UI.Image;
 
 public class ContentManager : MonoBehaviour
 {
