@@ -18,7 +18,7 @@ public class ContentManager : MonoBehaviour
         jsonContent = new JsonContent();
         imageContent = new ImageContent();
         audioContent = new AudioContent();
-        JsonUrl = "https://raw.githubusercontent.com/MarinRatkovicWork/Novena_Unity3D_TEST/main/DataFile.json";
+        JsonUrl = "https://raw.githubusercontent.com/MarinRatkovicWork/Novena_Unity3D_TEST/AfterDeadlineBranch/DataFile.json";
 
         DownloadAllContent();
     }
