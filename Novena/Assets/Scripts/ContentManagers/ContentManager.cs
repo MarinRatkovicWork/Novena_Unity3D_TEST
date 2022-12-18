@@ -60,7 +60,6 @@ public class ContentManager : MonoBehaviour
         }));
   
     }
-
     private IEnumerator DownloadJsonFile(string _Url, string _Name, Action<bool> callback)
     {
         using (UnityWebRequest www = UnityWebRequest.Get(_Url))
@@ -123,11 +122,10 @@ public class ContentManager : MonoBehaviour
             _AudioSwopTarget.clip = callClip;
         }));
     }
-
-    public void GetImageFromeFile(string _ImageName,Image _ImageSwopTarget)
+    public Sprite GetImageFromeFile(string _ImageName)
     {
        
-       _ImageSwopTarget.sprite = imageContent.LoadImageSprite(_ImageName);
+       return imageContent.LoadImageSprite(_ImageName);
 
     }
 

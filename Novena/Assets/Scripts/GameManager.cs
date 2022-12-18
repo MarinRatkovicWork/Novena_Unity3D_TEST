@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject AudioBar;
     [SerializeField]
-    RawImage ImageHolder;
+    Image ImageHolder;
     [SerializeField]
     Button AudioPlayPauseButton;
     [SerializeField]
@@ -59,16 +59,21 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject LanguageButtonPrefab;
 
-    AudioSource AudioSource;
-    bool PlayingAudio= false;
-    JsonData Jdata = new JsonData();
-    public float PictureSwopInterva = 5;
-    private bool isGallaryStop;
-    public List<GameObject> gallary = new List<GameObject>();
+
+    AudioSource audioSource;
+
+    bool playingAudio= false;
+    public float pictureSwopInterval = 5;
+    private bool isGallaryStart;
+    public List<Sprite> gallary = new List<Sprite>();
+    
+    ContentManager contentManager;
+    JsonData jsonData = new JsonData();
 
     public void Start()
     {
-        isGallaryStop = false;
+        contentManager = this.gameObject.GetComponent<ContentManager>();
+        isGallaryStart = false;
         EnablePage(1);
         Debug.Log(Application.persistentDataPath);
     }
@@ -76,9 +81,9 @@ public class GameManager : MonoBehaviour
     {
         if (Page3.active != false)
         {
-            AudioBar.GetComponentInChildren<Text>().text = FormatTime(AudioSource.time) + " / " + FormatTime(AudioSource.clip.length);
-            AudioBar.GetComponent<Slider>().value = AudioSource.time;
-            if (isGallaryStop == false)
+            AudioBar.GetComponentInChildren<Text>().text = FormatTime(audioSource.time) + " / " + FormatTime(audioSource.clip.length);
+            AudioBar.GetComponent<Slider>().value = audioSource.time;
+            if (isGallaryStart == false)
             {
                 StartCoroutine(SetUpGallary(gallary));
             }
@@ -89,10 +94,10 @@ public class GameManager : MonoBehaviour
     public void FixedUpdate()
     {
 
-       // if (this.gameObject.GetComponent<JsonContent>().jsonData != Jdata)
+        if (this.gameObject.GetComponent<ContentManager>().JsonData != jsonData)
         {
-           // Jdata = this.gameObject.GetComponent<JsonContent>().jsonData;
-            InstantiateAllLanguages(Jdata);
+            jsonData = this.gameObject.GetComponent<ContentManager>().JsonData;
+            InstantiateAllLanguages(jsonData);
 
         }
     }
@@ -175,63 +180,47 @@ public class GameManager : MonoBehaviour
         TopicNumber.text = _topicNumber.ToString();
         TopicName.text = _data.Name;
         gallary.Clear();
-        foreach(Media MD in _data.Media)
+        audioSource = AudioBar.GetComponent<AudioSource>();
+        foreach (Media MD in _data.Media)
         {
-            
-              LoadGallaryRawImagesFromDisk(MD);
+            if (MD.Photos != null)
+            {
+
+                foreach (Photos PH in MD.Photos)
+                {
+                        gallary.Add(contentManager.GetImageFromeFile(PH.Name));   
+                    
+                }
+            }
             if(MD.FilePath != null)
             {
-               // LoadAudioClipFromDisk(MD.Name);
+                contentManager.GetAudioFromFile(MD.Name,audioSource);
             }
         }
         
         SetAudioFile(_data);       
     }
 
-    private IEnumerator SetUpGallary(List<GameObject> _gallery)
-    {
-      for(int i = 0; i < _gallery.Count; i++)
-        {            
-            ImageHolder.texture = _gallery[i].GetComponent<RawImage>().texture;
-            yield return new WaitForSecondsRealtime(PictureSwopInterva);
-            if(i== 0)
-            {
-                isGallaryStop = true;
-            }
-            else if(i== _gallery.Count - 1)
-            {
-                isGallaryStop = false;
-
-            }
-        }
-     
-    }
+   
     private void SetAudioFile(Topics _data)
     {
-        AudioSource = AudioBar.GetComponent<AudioSource>();
         AudioPlayPauseButton.GetComponent<Button>().onClick.RemoveAllListeners();
-        AudioBar.GetComponent<Slider>().maxValue = AudioSource.clip.length;
-        AudioBar.GetComponent<Slider>().onValueChanged.AddListener(delegate{AudioSource.time = AudioBar.GetComponent<Slider>().value;});
-        AudioBar.GetComponent<Slider>().value = AudioSource.time;
-        AudioPlayPauseButton.GetComponent<Button>().onClick.AddListener(()=>PressPlay(AudioSource));        
-    }
-
-    private void GetAudioFile(Media _data)
-    {
-        JsonContent jR = this.gameObject.GetComponent<JsonContent>();
-        //jR.LoadAudio(_data.FilePath,_data.Name);
+        AudioBar.GetComponent<Slider>().maxValue = audioSource.clip.length;
+        AudioBar.GetComponent<Slider>().onValueChanged.AddListener(delegate{audioSource.time = AudioBar.GetComponent<Slider>().value;});
+        AudioBar.GetComponent<Slider>().value = audioSource.time;
+        AudioPlayPauseButton.GetComponent<Button>().onClick.AddListener(()=>PressPlay(audioSource));        
     }
     
     private void PressPlay(AudioSource _audioSource)
-    {   if(PlayingAudio == false)
+    {   if(playingAudio == false)
         {
-            PlayingAudio = true;
+            playingAudio = true;
         }
         else
         {
-            PlayingAudio = false;
+            playingAudio = false;
         }
-        if(PlayingAudio == true)
+        if(playingAudio == true)
         {
             
             PlayAudio(_audioSource, true);
@@ -279,54 +268,26 @@ public class GameManager : MonoBehaviour
         return string.Format("{0:00}:{1:00}", minutes, seconds);     
     }
     //Fach data from Aplication.PersistentDataPath
-    public void LoadGallaryRawImagesFromDisk(Media _data)
+    private IEnumerator SetUpGallary(List<Sprite> _gallery)
     {
-        if (_data.Photos != null)
+        if (_gallery.Count != 0)
         {
-            foreach (Photos PH in _data.Photos)
+            for (int i = 0; i < _gallery.Count; i++)
             {
-                if (PH != null)
+                ImageHolder.sprite = _gallery[i];
+                yield return new WaitForSecondsRealtime(pictureSwopInterval);
+                if (i == 0)
                 {
-                    if (File.Exists(Application.persistentDataPath + "/" + PH.Name))
-                    {
-                        byte[] UploadByte = File.ReadAllBytes(Application.persistentDataPath + "/" + PH.Name);
-                        Texture2D texture = new Texture2D(100, 100);
-                        texture.LoadImage(UploadByte);
-                        GameObject obj = new GameObject();
-                        obj.name = PH.Name;
-                        obj.AddComponent<RawImage>();
-                        obj.GetComponent<RawImage>().texture = texture;
-                        gallary.Add(obj);
-                    }
-                    else
-                    {  
-                        Debug.Log("Error on LoadImage");
-                    }
+                    isGallaryStart = true;
                 }
-                else
+                else if (i == _gallery.Count - 1)
                 {
-
-                    Debug.Log("Error on LoppData load");
+                    isGallaryStart = false;
 
                 }
             }
         }
-    }
-    public void LoadAudioClipFromDisk(string filename)
-    {
-        if (File.Exists(Application.persistentDataPath + "/" + filename))
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/" + filename, FileMode.Open);
-            AudioClip clip = (AudioClip)bf.Deserialize(file);
-            file.Close();
-            AudioBar.GetComponent<AudioSource>().clip = clip;
-        }
-        else
-        {
-            Debug.Log("File Not Found!");
-        }
-
+     
     }
 
 }
