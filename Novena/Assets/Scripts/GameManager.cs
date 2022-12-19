@@ -31,8 +31,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     Button ReturnPage3;
     [SerializeField]
-    Image ImageHolder;
-    [SerializeField]
     AudioPlayer audioPlayer;
     [SerializeField]
     Gallary gallary;
@@ -67,21 +65,24 @@ public class GameManager : MonoBehaviour
         if (this.gameObject.GetComponent<ContentManager>().JsonData != jsonData)
         {
             jsonData = this.gameObject.GetComponent<ContentManager>().JsonData;
-            InstantiateAllLanguages(jsonData);
+            SetUpPage1(jsonData);
+ 
 
         }
     }
-
     //Page methods
-    private void InstantiateNewLanguage(TranslatedContents _data)
+    private void SetUpPage1(JsonData _data)
     {
-        GameObject button = Instantiate(LanguageButtonPrefab);
-        button.transform.SetParent(LanguageButtonHolder.transform);
-        button.GetComponentInChildren<Text>().text = _data.LanguageName;
-        button.GetComponent<Button>().onClick.RemoveAllListeners();
-        button.GetComponent<Button>().onClick.AddListener(() => InstantiateTopics(_data));
+        foreach (TranslatedContents tc in _data.TranslatedContents)
+        {
+            GameObject button = Instantiate(LanguageButtonPrefab);
+            button.transform.SetParent(LanguageButtonHolder.transform);
+            button.GetComponentInChildren<Text>().text = tc.LanguageName;
+            button.GetComponent<Button>().onClick.RemoveAllListeners();
+            button.GetComponent<Button>().onClick.AddListener(() => SetUpPage2(tc));
+        }
     }
-    private void InstantiateTopics(TranslatedContents _data)
+    private void SetUpPage2(TranslatedContents _data)
     {
         int counter = 1;
         EnablePage(2);
@@ -107,43 +108,13 @@ public class GameManager : MonoBehaviour
             counter++;
         }
     }
-    private void DestroyAllChidren(GameObject _object)
-    {
-        for (int i = 0; _object.transform.childCount > i; i++)
-        {
-            Destroy(_object.transform.GetChild(i).gameObject);
-        }
-    }
-    private void InstantiateAllLanguages(JsonData _data)
-    {
-        foreach (TranslatedContents tc in _data.TranslatedContents)
-        {
-            Debug.Log("Izvrseno");
-            InstantiateNewLanguage(tc);
-        }
-    }
-    private void EnablePage(int pageNumber)
-    {
-        List<GameObject> list = new List<GameObject>();
-        list.Add(Page1);
-        list.Add(Page2);
-        list.Add(Page3);
-        list.Add(Page4);
-        for (int i = 0; list.Count > i; i++)
-        {
-            if (pageNumber - 1 == i)
-            {
-                list[i].gameObject.SetActive(true);
-            }
-            else
-            {
-                list[i].gameObject.SetActive(false);
-            }
-        }
-    }
     private void SetUpPage3(Topics _data, int _topicNumber)
     {
-        ReturnPage3.GetComponent<Button>().onClick.AddListener(() => EnablePage(2));
+        ReturnPage3.GetComponent<Button>().onClick.AddListener(() => 
+        {
+            EnablePage(2);
+            audioPlayer.isPlaying = false;
+        }) ;
         TopicNumber.text = _topicNumber.ToString();
         TopicName.text = _data.Name;
         gallary.spriteList.Clear();
@@ -164,6 +135,31 @@ public class GameManager : MonoBehaviour
         }
         gallary.isGallaryAutomaticShowEnabled = true;
     }
-
-
+    //Hellper methods
+    private void EnablePage(int pageNumber)
+    {
+        List<GameObject> list = new List<GameObject>();
+        list.Add(Page1);
+        list.Add(Page2);
+        list.Add(Page3);
+        list.Add(Page4);
+        for (int i = 0; list.Count > i; i++)
+        {
+            if (pageNumber - 1 == i)
+            {
+                list[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                list[i].gameObject.SetActive(false);
+            }
+        }
+    } 
+    private void DestroyAllChidren(GameObject _object)
+    {
+        for (int i = 0; _object.transform.childCount > i; i++)
+        {
+            Destroy(_object.transform.GetChild(i).gameObject);
+        }
+    }
 }

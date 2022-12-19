@@ -21,19 +21,15 @@ public class AudioPlayer : MonoBehaviour
    public AudioSource audio = new AudioSource();
    public bool isPlaying = false;
     public void Start()
-    {
-        audio=audioSource;
+    {        
+        audio =audioSource;
         audioPlayPauseButton.GetComponent<Button>().onClick.AddListener(() => PressPlay());
         SetAudioFile();
     }
     public void Update()
     {
-        if(audio.clip != audioSource)
-        {
-            audioSource.clip = audio.clip;
-            SetAudioFile();
-            
-        }
+         audioSource.clip = audio.clip;
+         SetAudioFile();
          audioBar.value = audioSource.time;
          timeText.text = FormatTime(audioSource.time) + " / " + FormatTime(audioSource.clip.length);
          PlayButtonGrafic();
