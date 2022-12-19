@@ -2012,8 +2012,9 @@ GameObject:
   - component: {fileID: 1427494614}
   - component: {fileID: 1427494616}
   - component: {fileID: 1427494617}
+  - component: {fileID: 1427494618}
   m_Layer: 5
-  m_Name: ImageHolder
+  m_Name: Gallary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2077,6 +2078,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1427494618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427494613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b343b0ffc50c9f4ab09602180c100d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 1427494617}
+  spriteList: []
+  isGallaryAutomaticShowEnabled: 1
+  timeGallaryAutomaticInterval: 2
 --- !u!1 &1574752650
 GameObject:
   m_ObjectHideFlags: 0
@@ -2973,12 +2990,11 @@ MonoBehaviour:
   TopicName: {fileID: 118215980}
   ReturnPage3: {fileID: 1585528379}
   ImageHolder: {fileID: 1427494617}
+  audioPlayer: {fileID: 756528384}
+  gallary: {fileID: 1427494618}
   Page4: {fileID: 2024217523}
   TopicButton: {fileID: 8122098230309996883, guid: 0ff70dec8e4989546a09472bbadb6813, type: 3}
   LanguageButtonPrefab: {fileID: 3462380664165838255, guid: bbdb51f6e8ddc1f4c936cb413d78b236, type: 3}
-  audioPlayer: {fileID: 756528384}
-  pictureSwopInterval: 5
-  gallary: []
 --- !u!114 &5624939448026135341
 MonoBehaviour:
   m_ObjectHideFlags: 0

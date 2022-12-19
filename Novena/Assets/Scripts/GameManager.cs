@@ -32,6 +32,10 @@ public class GameManager : MonoBehaviour
     Button ReturnPage3;
     [SerializeField]
     Image ImageHolder;
+    [SerializeField]
+    AudioPlayer audioPlayer;
+    [SerializeField]
+    Gallary gallary;
 
 
     [Space]
@@ -46,35 +50,17 @@ public class GameManager : MonoBehaviour
     GameObject TopicButton;
     [SerializeField]
     GameObject LanguageButtonPrefab;
-    [SerializeField]
-    AudioPlayer audioPlayer;
-
-    public float pictureSwopInterval = 5;
-    private bool isGallaryStart;
-    public List<Sprite> gallary = new List<Sprite>();
-    
+       
     ContentManager contentManager;
     JsonData jsonData = new JsonData();
 
     public void Start()
     {
         contentManager = this.gameObject.GetComponent<ContentManager>();
-        isGallaryStart = false;
         EnablePage(1);
         Debug.Log(Application.persistentDataPath);
     }
-    public void Update()
-    {
-        if (Page3.active != false)
-        {
-            if (isGallaryStart == false)
-            {
-                StartCoroutine(SetUpGallary(gallary));
-            }
-        } 
-        
-        
-    }
+
     public void FixedUpdate()
     {
 
@@ -160,7 +146,7 @@ public class GameManager : MonoBehaviour
         ReturnPage3.GetComponent<Button>().onClick.AddListener(() => EnablePage(2));
         TopicNumber.text = _topicNumber.ToString();
         TopicName.text = _data.Name;
-        gallary.Clear();
+        gallary.spriteList.Clear();
         foreach (Media MD in _data.Media)
         {
             if (MD.Photos != null)
@@ -168,38 +154,16 @@ public class GameManager : MonoBehaviour
 
                 foreach (Photos PH in MD.Photos)
                 {
-                        gallary.Add(contentManager.GetImageFromeFile(PH.Name));   
-                    
+                    gallary.spriteList.Add(contentManager.GetImageFromeFile(PH.Name));                       
                 }
             }
             if(MD.FilePath != null)
             {
                 contentManager.GetAudioFromFile(MD.Name,audioPlayer.audio);
             }
-        }               
-    }
-
-    //Gallary methods 
-    private IEnumerator SetUpGallary(List<Sprite> _gallery)
-    {
-        if (_gallery.Count != 0)
-        {
-            for (int i = 0; i < _gallery.Count; i++)
-            {
-                ImageHolder.sprite = _gallery[i];
-                yield return new WaitForSecondsRealtime(pictureSwopInterval);
-                if (i == 0)
-                {
-                    isGallaryStart = true;
-                }
-                else if (i == _gallery.Count - 1)
-                {
-                    isGallaryStart = false;
-
-                }
-            }
         }
-     
+        gallary.isGallaryAutomaticShowEnabled = true;
     }
+
 
 }
