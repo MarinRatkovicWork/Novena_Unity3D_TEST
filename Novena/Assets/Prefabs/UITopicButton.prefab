@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 4991794502700808630}
   - component: {fileID: 3407499748562287600}
   m_Layer: 5
-  m_Name: TopicButton
+  m_Name: UITopicButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 3013869723201911445}
   - component: {fileID: 431728975929630026}
   m_Layer: 5
-  m_Name: LanguageButton
+  m_Name: UILanguageButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

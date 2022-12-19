@@ -56,6 +56,8 @@ public class GameManager : MonoBehaviour
 
 
     AudioSource audioSource;
+    AudioClip clip;
+    Topics data;
 
     bool playingAudio= false;
     public float pictureSwopInterval = 5;
@@ -76,6 +78,10 @@ public class GameManager : MonoBehaviour
     {
         if (Page3.active != false)
         {
+            if (clip != audioSource.clip)
+            {
+                SetAudioFile(data);
+            }
             AudioBar.GetComponentInChildren<Text>().text = FormatTime(audioSource.time) + " / " + FormatTime(audioSource.clip.length);
             AudioBar.GetComponent<Slider>().value = audioSource.time;
             if (isGallaryStart == false)
@@ -97,6 +103,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Page methods
     private void InstantiateNewLanguage(TranslatedContents _data)
     {
         GameObject button = Instantiate(LanguageButtonPrefab);
@@ -105,7 +112,6 @@ public class GameManager : MonoBehaviour
         button.GetComponent<Button>().onClick.RemoveAllListeners();
         button.GetComponent<Button>().onClick.AddListener(() => InstantiateTopics(_data));
     }
-
     private void InstantiateTopics(TranslatedContents _data)
     {
         int counter = 1;
@@ -132,7 +138,6 @@ public class GameManager : MonoBehaviour
             counter++;
         }
     }
-
     private void DestroyAllChidren(GameObject _object)
     {
         for (int i = 0; _object.transform.childCount > i; i++)
@@ -140,8 +145,6 @@ public class GameManager : MonoBehaviour
             Destroy(_object.transform.GetChild(i).gameObject);
         }
     }
-
-
     private void InstantiateAllLanguages(JsonData _data)
     {
         foreach (TranslatedContents tc in _data.TranslatedContents)
@@ -150,7 +153,6 @@ public class GameManager : MonoBehaviour
             InstantiateNewLanguage(tc);
         }
     }
-
     private void EnablePage(int pageNumber)
     {
         List<GameObject> list = new List<GameObject>();
@@ -170,7 +172,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
     private void SetUpPage3(Topics _data, int _topicNumber)
     {
         ReturnPage3.GetComponent<Button>().onClick.AddListener(() => EnablePage(2));
@@ -178,6 +179,7 @@ public class GameManager : MonoBehaviour
         TopicName.text = _data.Name;
         gallary.Clear();
         audioSource = AudioBar.GetComponent<AudioSource>();
+        clip= audioSource.clip;
         foreach (Media MD in _data.Media)
         {
             if (MD.Photos != null)
@@ -194,11 +196,10 @@ public class GameManager : MonoBehaviour
                 contentManager.GetAudioFromFile(MD.Name,audioSource);
             }
         }
-        
-        SetAudioFile(_data);       
+        data = _data;
     }
 
-   
+   //Audio methods
     private void SetAudioFile(Topics _data)
     {
         AudioPlayPauseButton.GetComponent<Button>().onClick.RemoveAllListeners();
@@ -206,10 +207,9 @@ public class GameManager : MonoBehaviour
         AudioBar.GetComponent<Slider>().onValueChanged.AddListener(delegate{audioSource.time = AudioBar.GetComponent<Slider>().value;});
         AudioBar.GetComponent<Slider>().value = audioSource.time;
         AudioPlayPauseButton.GetComponent<Button>().onClick.AddListener(()=>PressPlay(audioSource));        
-    }
-    
+    } 
     private void PressPlay(AudioSource _audioSource)
-    {   if(playingAudio == false)
+   {   if(playingAudio == false)
         {
             playingAudio = true;
         }
@@ -230,8 +230,6 @@ public class GameManager : MonoBehaviour
             PlayButtonGrafic(true);
         }
     }
-
-
     private void PlayAudio (AudioSource _audioSource,bool _isPlaying)
     {
         if(_isPlaying == false)
@@ -243,8 +241,6 @@ public class GameManager : MonoBehaviour
             _audioSource.Play();
         }
     }
-
-
     private void PlayButtonGrafic(bool _isPlayingSprite)
     {
         if(_isPlayingSprite == true)
@@ -264,7 +260,8 @@ public class GameManager : MonoBehaviour
         int seconds = (int)time - 60 * minutes;     
         return string.Format("{0:00}:{1:00}", minutes, seconds);     
     }
-    //Fach data from Aplication.PersistentDataPath
+
+    //Gallary methods 
     private IEnumerator SetUpGallary(List<Sprite> _gallery)
     {
         if (_gallery.Count != 0)

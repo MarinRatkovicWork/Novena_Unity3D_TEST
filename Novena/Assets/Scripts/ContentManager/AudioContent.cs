@@ -22,7 +22,7 @@ public class AudioContent
         if (!AudioExists(_name))
         {
             File.WriteAllBytes(SavePath + _name, _bytes);
-            Debug.Log("Image writen to file: " + SavePath + _name);
+            Debug.Log("Audio writen to file: " + SavePath + _name);
         }
     }
     public IEnumerator LoadAudio(string _Name, Action<AudioClip> callback)
