@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour
         EnablePage(2);
         foreach (Topics topic in _data.Topics)
         {
+            int curentNum = counter;
             GameObject button = Instantiate(TopicButton);
             button.transform.SetParent(TopicContainer.transform);
             button.GetComponent<TopicButton>().TopicText.text = topic.Name;
@@ -119,7 +120,8 @@ public class GameManager : MonoBehaviour
             button.GetComponent<Button>().onClick.RemoveAllListeners();
             button.GetComponent<Button>().onClick.AddListener(() =>
             {
-                SetUpPage3(topic, counter);
+                
+                SetUpPage3(topic, curentNum);
                 EnablePage(3);
             });
             ReturnPage2.GetComponent<Button>().onClick.AddListener(() =>
