@@ -31,15 +31,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     Button ReturnPage3;
     [SerializeField]
-    GameObject AudioBar;
-    [SerializeField]
     Image ImageHolder;
-    [SerializeField]
-    Button AudioPlayPauseButton;
-    [SerializeField]
-    GameObject Play;
-    [SerializeField]
-    GameObject Pause;
+
 
     [Space]
 
@@ -53,13 +46,9 @@ public class GameManager : MonoBehaviour
     GameObject TopicButton;
     [SerializeField]
     GameObject LanguageButtonPrefab;
+    [SerializeField]
+    AudioPlayer audioPlayer;
 
-
-    AudioSource audioSource;
-    AudioClip clip;
-    Topics data;
-
-    bool playingAudio= false;
     public float pictureSwopInterval = 5;
     private bool isGallaryStart;
     public List<Sprite> gallary = new List<Sprite>();
@@ -78,12 +67,6 @@ public class GameManager : MonoBehaviour
     {
         if (Page3.active != false)
         {
-            if (clip != audioSource.clip)
-            {
-                SetAudioFile(data);
-            }
-            AudioBar.GetComponentInChildren<Text>().text = FormatTime(audioSource.time) + " / " + FormatTime(audioSource.clip.length);
-            AudioBar.GetComponent<Slider>().value = audioSource.time;
             if (isGallaryStart == false)
             {
                 StartCoroutine(SetUpGallary(gallary));
@@ -178,8 +161,6 @@ public class GameManager : MonoBehaviour
         TopicNumber.text = _topicNumber.ToString();
         TopicName.text = _data.Name;
         gallary.Clear();
-        audioSource = AudioBar.GetComponent<AudioSource>();
-        clip= audioSource.clip;
         foreach (Media MD in _data.Media)
         {
             if (MD.Photos != null)
@@ -193,72 +174,9 @@ public class GameManager : MonoBehaviour
             }
             if(MD.FilePath != null)
             {
-                contentManager.GetAudioFromFile(MD.Name,audioSource);
+                contentManager.GetAudioFromFile(MD.Name,audioPlayer.audio);
             }
-        }
-        data = _data;
-    }
-
-   //Audio methods
-    private void SetAudioFile(Topics _data)
-    {
-        AudioPlayPauseButton.GetComponent<Button>().onClick.RemoveAllListeners();
-        AudioBar.GetComponent<Slider>().maxValue = audioSource.clip.length;
-        AudioBar.GetComponent<Slider>().onValueChanged.AddListener(delegate{audioSource.time = AudioBar.GetComponent<Slider>().value;});
-        AudioBar.GetComponent<Slider>().value = audioSource.time;
-        AudioPlayPauseButton.GetComponent<Button>().onClick.AddListener(()=>PressPlay(audioSource));        
-    } 
-    private void PressPlay(AudioSource _audioSource)
-   {   if(playingAudio == false)
-        {
-            playingAudio = true;
-        }
-        else
-        {
-            playingAudio = false;
-        }
-        if(playingAudio == true)
-        {
-            
-            PlayAudio(_audioSource, true);
-            PlayButtonGrafic(false);
-        }
-        else
-        {
-            
-            PlayAudio(_audioSource, false);
-            PlayButtonGrafic(true);
-        }
-    }
-    private void PlayAudio (AudioSource _audioSource,bool _isPlaying)
-    {
-        if(_isPlaying == false)
-        {
-            _audioSource.Pause();
-        }
-        else
-        {
-            _audioSource.Play();
-        }
-    }
-    private void PlayButtonGrafic(bool _isPlayingSprite)
-    {
-        if(_isPlayingSprite == true)
-        {
-            Play.SetActive(true);
-            Pause.SetActive(false);
-        }
-        else
-        {
-            Play.SetActive(false);
-            Pause.SetActive(true);
-        }
-    } 
-    public string FormatTime(float time)
-    {
-        int minutes = (int)time / 60;
-        int seconds = (int)time - 60 * minutes;     
-        return string.Format("{0:00}:{1:00}", minutes, seconds);     
+        }               
     }
 
     //Gallary methods 

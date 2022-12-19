@@ -692,7 +692,7 @@ GameObject:
   - component: {fileID: 499439027}
   - component: {fileID: 499439026}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: TimeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1204,8 +1204,9 @@ GameObject:
   - component: {fileID: 756528381}
   - component: {fileID: 756528382}
   - component: {fileID: 756528383}
+  - component: {fileID: 756528384}
   m_Layer: 5
-  m_Name: AudioBar
+  m_Name: AudioPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1382,6 +1383,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &756528384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756528380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40ae4734eae727342be8ced122651186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioBar: {fileID: 756528382}
+  audioSource: {fileID: 756528383}
+  audioPlayPauseButton: {fileID: 1590696567022683374}
+  play: {fileID: 1239276435}
+  pause: {fileID: 1574752650}
+  timeText: {fileID: 499439026}
+  audio: {fileID: 0}
+  isPlaying: 0
 --- !u!1 &829974128
 GameObject:
   m_ObjectHideFlags: 0
@@ -2951,14 +2972,11 @@ MonoBehaviour:
   TopicNumber: {fileID: 1310835543}
   TopicName: {fileID: 118215980}
   ReturnPage3: {fileID: 1585528379}
-  AudioBar: {fileID: 756528380}
   ImageHolder: {fileID: 1427494617}
-  AudioPlayPauseButton: {fileID: 1590696567022683374}
-  Play: {fileID: 1239276435}
-  Pause: {fileID: 1574752650}
   Page4: {fileID: 2024217523}
   TopicButton: {fileID: 8122098230309996883, guid: 0ff70dec8e4989546a09472bbadb6813, type: 3}
   LanguageButtonPrefab: {fileID: 3462380664165838255, guid: bbdb51f6e8ddc1f4c936cb413d78b236, type: 3}
+  audioPlayer: {fileID: 756528384}
   pictureSwopInterval: 5
   gallary: []
 --- !u!114 &5624939448026135341
