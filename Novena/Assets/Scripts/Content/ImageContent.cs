@@ -1,24 +1,32 @@
+using System;
 using System.IO;
 using UnityEngine;
 
 public class ImageContent
 {
     string SavePath;  
-    bool ImageExists(string _name)
+    public bool ImageExists(string _name)
     {
+        SavePath = Application.persistentDataPath + "/Images/";
         return File.Exists(SavePath + _name);
     }
 
-    public void SaveImage(string _name, byte[] _bytes)
+    public void SaveImage(string _name, byte[] _bytes, Action<bool> _isSaveFinish)
     {
         SavePath = Application.persistentDataPath + "/Images/";
         if (!Directory.Exists(SavePath))
         {
             Directory.CreateDirectory(SavePath);
+            _isSaveFinish(true);
         }
         if (!ImageExists(_name))
         {
             File.WriteAllBytes(SavePath + _name, _bytes);
+            _isSaveFinish(true);
+        }
+        else
+        {
+            _isSaveFinish(true);
         }
     }
 

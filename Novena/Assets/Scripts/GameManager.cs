@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("PageDownloading/Loding")]
+    [SerializeField]
+    GameObject PageDownloadingLoding;
     [Header("Screen 1 - Refrences")]
     [SerializeField]
     GameObject Page1;
@@ -97,7 +100,7 @@ public class GameManager : MonoBehaviour
             button.GetComponent<Button>().onClick.AddListener(() =>
             {
                 
-                SetUpPage3(topic, curentNum);
+               StartCoroutine(SetUpPage3(topic, curentNum));
                 EnablePage(3);
             });
             ReturnPage2.GetComponent<Button>().onClick.AddListener(() =>
@@ -108,8 +111,9 @@ public class GameManager : MonoBehaviour
             counter++;
         }
     }
-    private void SetUpPage3(Topics _data, int _topicNumber)
+    private IEnumerator SetUpPage3(Topics _data, int _topicNumber)
     {
+        ActivatePageDownloadingLoding("Loading...");
         ReturnPage3.GetComponent<Button>().onClick.AddListener(() => 
         {
             EnablePage(2);
@@ -131,9 +135,23 @@ public class GameManager : MonoBehaviour
             if(MD.FilePath != null)
             {
                 contentManager.GetAudioFromFile(MD.Name,audioPlayer.audio);
+                
             }
         }
         gallary.isGallaryAutomaticShowEnabled = true;
+        //I know it is not idial solution but works fine becuse loding time fore audio dosn't lag more then 2 seconds
+        yield return new WaitForSeconds(2);
+        DeactivatePageDownloadingLoding();
+    }
+    //Downloding and loding pupup
+    public void ActivatePageDownloadingLoding(string _textMesagge)
+    {
+        PageDownloadingLoding.SetActive(true);
+        PageDownloadingLoding.GetComponentInChildren<Text>().text = _textMesagge;
+    }
+    public void DeactivatePageDownloadingLoding()
+    {
+        PageDownloadingLoding.SetActive(false);
     }
     //Hellper methods
     private void EnablePage(int pageNumber)
